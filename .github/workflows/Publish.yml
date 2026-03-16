@@ -77,10 +77,10 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-dnscache
+          image-name: pupsieco/zimfarm-dnscache
           on-master: latest
           tag-pattern: /^dnscache-v([0-9.]+)$/
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: dnscache
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -98,10 +98,10 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-uploader
+          image-name: pupsieco/zimfarm-uploader
           on-master: latest
           tag-pattern: /^uploader-v([0-9.]+)$/
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: uploader
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -119,9 +119,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-backend
+          image-name: pupsieco/zimfarm-backend
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: backend
           dockerfile: api.Dockerfile
           registries: ghcr.io
@@ -154,9 +154,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-background-tasks
+          image-name: pupsieco/zimfarm-background-tasks
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: backend
           dockerfile: background-tasks.Dockerfile
           registries: ghcr.io
@@ -189,9 +189,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-ui
+          image-name: pupsieco/zimfarm-ui
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: frontend-ui
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -223,9 +223,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-receiver
+          image-name: pupsieco/zimfarm-receiver
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: receiver
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -250,9 +250,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-task-worker
+          image-name: pupsieco/zimfarm-task-worker
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: worker
           dockerfile: task-Dockerfile
           registries: ghcr.io
@@ -271,9 +271,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-worker-manager
+          image-name: pupsieco/zimfarm-worker-manager
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: worker
           dockerfile: manager-Dockerfile
           registries: ghcr.io
@@ -292,9 +292,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-monitor-child
+          image-name: pupsieco/zimfarm-monitor-child
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: monitor/child
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -312,9 +312,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-monitor-parent
+          image-name: pupsieco/zimfarm-monitor-parent
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: monitor/parent
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -332,9 +332,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-watcher
+          image-name: pupsieco/zimfarm-watcher
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: watcher
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -359,9 +359,9 @@ jobs:
       - name: Build and publish Docker Image
         uses: openzim/docker-publish-action@v10
         with:
-          image-name: openzim/zimfarm-healthcheck
+          image-name: pupsieco/zimfarm-healthcheck
           on-master: latest
-          restrict-to: openzim/zimfarm
+          restrict-to: pupsieco/zimfarm
           context: healthcheck
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
