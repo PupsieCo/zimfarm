@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches:
-      - "main"
+      - "gay-internet-archives"
   workflow_dispatch:
     inputs:
       force:
