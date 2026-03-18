@@ -80,7 +80,7 @@ jobs:
           image-name: pupsieco/zimfarm-dnscache
           on-master: latest
           tag-pattern: /^dnscache-v([0-9.]+)$/
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: dnscache
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -101,7 +101,7 @@ jobs:
           image-name: pupsieco/zimfarm-uploader
           on-master: latest
           tag-pattern: /^uploader-v([0-9.]+)$/
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: uploader
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -121,7 +121,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-backend
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: backend
           dockerfile: api.Dockerfile
           registries: ghcr.io
@@ -142,7 +142,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-background-tasks
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: backend
           dockerfile: background-tasks.Dockerfile
           registries: ghcr.io
@@ -163,7 +163,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-ui
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: frontend-ui
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -183,7 +183,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-receiver
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: receiver
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -203,7 +203,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-task-worker
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: worker
           dockerfile: task-Dockerfile
           registries: ghcr.io
@@ -224,7 +224,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-worker-manager
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: worker
           dockerfile: manager-Dockerfile
           registries: ghcr.io
@@ -245,7 +245,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-monitor-child
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: monitor/child
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -265,7 +265,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-monitor-parent
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: monitor/parent
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -285,7 +285,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-watcher
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: watcher
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
@@ -305,7 +305,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-healthcheck
           on-master: latest
-          restrict-to: pupsieco/zimfarm
+          restrict-to: PupsieCo/zimfarm
           context: healthcheck
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
