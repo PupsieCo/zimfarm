@@ -128,20 +128,6 @@ jobs:
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
             GHCRIO_TOKEN=${{ secrets.GHCR_TOKEN }}
 
-      - name: Deploy Zimfarm API changes to openzim.org
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMFARM_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments api-deployment -n zimfarm
-
-      - name: Deploy Zimfarm API changes to youzim.it
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMIT_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments api-deployment -n zimit
-
   background-tasks:
     name: Zimfarm Background Tasks Build
     runs-on: ubuntu-24.04
@@ -163,20 +149,6 @@ jobs:
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
             GHCRIO_TOKEN=${{ secrets.GHCR_TOKEN }}
 
-      - name: Deploy Zimfarm Background Tasks changes to openzim.org
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMFARM_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments background-tasks-deployment -n zimfarm
-
-      - name: Deploy Zimfarm Background Tasks changes to youzim.it
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMIT_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments background-tasks-deployment -n zimit
-
   frontend-ui:
     name: Frontend UI build
     runs-on: ubuntu-24.04
@@ -197,20 +169,6 @@ jobs:
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
             GHCRIO_TOKEN=${{ secrets.GHCR_TOKEN }}
 
-      - name: Deploy Zimfarm UI changes to openzim.org
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMFARM_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments ui-deployment -n zimfarm
-
-      - name: Deploy Zimfarm UI changes to youzim.it
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMIT_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments farm-ui-deployment -n zimit
-
   receiver:
     name: Receiver build
     runs-on: ubuntu-24.04
@@ -230,13 +188,6 @@ jobs:
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
             GHCRIO_TOKEN=${{ secrets.GHCR_TOKEN }}
-
-      - name: Deploy Zimfarm receiver changes
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMFARM_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments receiver-deployment -n zim
 
   task-worker:
     name: Task worker build
@@ -340,13 +291,6 @@ jobs:
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
             GHCRIO_TOKEN=${{ secrets.GHCR_TOKEN }}
 
-      - name: Deploy Zimfarm Watcher changes
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMFARM_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments watcher-deployment -n zimfarm
-
   healthcheck:
     name: Healthcheck build
     runs-on: ubuntu-24.04
@@ -366,17 +310,3 @@ jobs:
           registries: ghcr.io
           credentials: GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
             GHCRIO_TOKEN=${{ secrets.GHCR_TOKEN }}
-
-      - name: Deploy Healthcheck changes to openzim.org
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMFARM_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments status-deployment -n zimfarm
-
-      - name: Deploy Healthcheck changes to youzim.it
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.ZIMIT_KUBE_CONFIG }}
-        with:
-          args: rollout restart deployments status-deployment -n zimit
