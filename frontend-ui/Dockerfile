@@ -19,6 +19,7 @@ RUN apk --no-cache add python3
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx-default.conf /etc/nginx/conf.d/default.conf
+RUN touch /usr/share/nginx/html/config.json
 
 ENV ZIMFARM_WEBAPI https://api.farm.openzim.org/v2
 EXPOSE 80
