@@ -79,7 +79,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-dnscache
           on-master: latest
-          tag-pattern: /^dnscache-v([0-9.]+)$/
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: dnscache
           registries: ghcr.io
@@ -100,7 +100,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-uploader
           on-master: latest
-          tag-pattern: /^uploader-v([0-9.]+)$/
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: uploader
           registries: ghcr.io
@@ -121,6 +121,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-backend
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: backend
           dockerfile: api.Dockerfile
@@ -142,6 +143,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-background-tasks
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: backend
           dockerfile: background-tasks.Dockerfile
@@ -163,6 +165,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-ui
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: frontend-ui
           registries: ghcr.io
@@ -183,6 +186,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-receiver
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: receiver
           registries: ghcr.io
@@ -203,6 +207,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-task-worker
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: worker
           dockerfile: task-Dockerfile
@@ -224,6 +229,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-worker-manager
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: worker
           dockerfile: manager-Dockerfile
@@ -245,6 +251,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-monitor-child
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: monitor/child
           registries: ghcr.io
@@ -265,6 +272,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-monitor-parent
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: monitor/parent
           registries: ghcr.io
@@ -285,6 +293,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-watcher
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: watcher
           registries: ghcr.io
@@ -305,6 +314,7 @@ jobs:
         with:
           image-name: pupsieco/zimfarm-healthcheck
           on-master: latest
+          latest-on-tag: true
           restrict-to: PupsieCo/zimfarm
           context: healthcheck
           registries: ghcr.io
