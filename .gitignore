@@ -139,3 +139,7 @@ Pipfile
 *.vim
 
 *.old
+
+
+# Claude Code Files
+.claude*
