@@ -13,14 +13,14 @@ RUN NODE_ENV=production yarn build
 
 FROM nginx:1.28-alpine3.21
 LABEL zimfarm=true
-LABEL org.opencontainers.image.source https://github.com/openzim/zimfarm
+LABEL org.opencontainers.image.source https://github.com/pupsieco/zimfarm
 
 RUN apk --no-cache add python3
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx-default.conf /etc/nginx/conf.d/default.conf
 
-ENV ZIMFARM_WEBAPI https://api.farm.openzim.org/v2
+ENV ZIMFARM_WEBAPI https://api.farm.archive.gay/v2
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]

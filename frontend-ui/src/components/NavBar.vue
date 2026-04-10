@@ -9,7 +9,7 @@
           <img src="/assets/logo.svg" width="32" height="32" alt="Zimfarm Logo" class="logo-img" />
           <Loading :should-display="isLoading" :loading-text="loadingText" />
         </div>
-        <span class="ml-2 text-white">Zimfarm</span>
+        <span class="ml-2 text-white">Gayfarm</span>
       </router-link>
     </v-app-bar-title>
     <v-spacer class="d-flex"></v-spacer>

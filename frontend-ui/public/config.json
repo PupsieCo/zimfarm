@@ -1,13 +1,13 @@
 {
-  "ZIMFARM_WEBAPI": "https://api.farm.openzim.org/v2",
-  "ZIMFARM_ZIM_DOWNLOAD_URL": "https://download.kiwix.org/zim",
+  "ZIMFARM_WEBAPI": "https://api.farm.archive.gay/v2",
+  "ZIMFARM_ZIM_DOWNLOAD_URL": "https://download.archive.gay/zim",
   "MATOMO_ENABLED": false,
-  "MATOMO_HOST": "https://stats.kiwix.org",
+  "MATOMO_HOST": "https://stats.archive.gay",
   "MATOMO_SITE_ID": 8,
   "MATOMO_TRACKER_FILE_NAME": "matomo",
-  "MONITORING_URL": "https://monitoring.openzim.org",
+  "MONITORING_URL": "https://monitoring.archive.gay",
   "OAUTH_CLIENT_ID": "d87a31d2-874e-44c4-9dc2-63fad523bf1b",
-  "OAUTH_BASE_URL": "https://login.kiwix.org",
+  "OAUTH_BASE_URL": "https://login.archive.gay",
   "BLOB_MAX_SIZE": 1048576,
   "OAUTH_MODE": "session",
   "LOGIN_MODES": ["local", "oauth"]
