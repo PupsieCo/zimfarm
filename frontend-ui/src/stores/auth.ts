@@ -9,7 +9,6 @@ import httpRequest from '@/utils/httpRequest'
 import { defineStore } from 'pinia'
 import { computed, inject, ref } from 'vue'
 import { OAuthOIDCProvider } from '@/services/auth/OAuthOIDCProvider'
-import { OAuthSessionProvider } from '@/services/auth/OAuthSessionProvider'
 import type { AuthProvider } from '@/services/auth/base'
 import { LocalAuthProvider } from '@/services/auth/LocalAuthProvider'
 
@@ -29,10 +28,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   let oauthProvider: AuthProvider | null = null
-  if (config.OAUTH_MODE == 'oidc') {
-    oauthProvider = new OAuthOIDCProvider(getOAuthConfig(config))
-  } else if (config.OAUTH_MODE == 'session') {
-    oauthProvider = new OAuthSessionProvider(getOAuthConfig(config))
+  if (config.OAUTH_MODE === 'oidc' || config.OAUTH_MODE === 'rauthy') {
+    oauthProvider = new OAuthOIDCProvider(getOAuthConfig(config), config.OAUTH_MODE)
   }
 
   const localauthProvider = new LocalAuthProvider(config.ZIMFARM_WEBAPI)
@@ -70,7 +67,9 @@ export const useAuthStore = defineStore('auth', () => {
 
   const getAuthProvider = (providerType: AuthProviderType): AuthProvider => {
     switch (providerType) {
-      case 'oauth':
+      case 'oidc':
+      case 'rauthy':
+      case 'oauth': // Legacy alias for oidc
         if (!oauthProvider) {
           throw new Error('No oauth provider configured.')
         }

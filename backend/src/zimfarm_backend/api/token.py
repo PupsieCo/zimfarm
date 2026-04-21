@@ -14,12 +14,12 @@ from zimfarm_backend.api.constants import (
     JWT_SECRET,
     JWT_TOKEN_EXPIRY_DURATION,
     JWT_TOKEN_ISSUER,
+    OAUTH_AUDIENCE,
     OAUTH_ISSUER,
     OAUTH_JWKS_URI,
+    OAUTH_MODE,
     OAUTH_OIDC_CLIENT_ID,
     OAUTH_OIDC_LOGIN_REQUIRE_2FA,
-    OAUTH_SESSION_AUDIENCE_ID,
-    OAUTH_SESSION_LOGIN_REQUIRE_2FA,
 )
 from zimfarm_backend.common.schemas import BaseModel
 
@@ -134,11 +134,11 @@ class OAuthOIDCTokenDecoder(TokenDecoder):
         return "oauth-oidc" in AUTH_MODES
 
 
-class OAuthSessionTokenDecoder(TokenDecoder):
-    """Decoder for OAuth Session JWT tokens."""
+class RAuthyTokenDecoder(TokenDecoder):
+    """Decoder for RAuthy OIDC JWT tokens."""
 
     def __init__(self):
-        """Initialize OAuth token decoder."""
+        """Initialize RAuthy token decoder."""
         self._jwks_client = PyJWKClient(
             OAUTH_JWKS_URI,
             cache_keys=True,
@@ -147,7 +147,11 @@ class OAuthSessionTokenDecoder(TokenDecoder):
 
     def decode(self, token: str) -> JWTClaims:
         """
-        Decode and validate an OAuth OIDC token.
+        Decode and validate a RAuthy OIDC token.
+
+        RAuthy uses the /oidc/ endpoints with EdDSA/RS256 signing algorithms.
+        The token validation is similar to OAuthOIDCTokenDecoder but may have
+        different issuer and audience values.
         """
         signing_key = self._jwks_client.get_signing_key_from_jwt(token)
         decoded_token = jwt.decode(
@@ -155,27 +159,33 @@ class OAuthSessionTokenDecoder(TokenDecoder):
             signing_key.key,
             algorithms=[signing_key.algorithm_name],
             issuer=OAUTH_ISSUER,
-            audience=OAUTH_SESSION_AUDIENCE_ID,
+            # Use OAUTH_AUDIENCE if set, otherwise fall back to OAUTH_OIDC_CLIENT_ID
+            audience=OAUTH_AUDIENCE or OAUTH_OIDC_CLIENT_ID,
             options={
-                "require": ["exp", "iat", "iss", "sub", "name", "aud", "aal"],
+                "require": ["exp", "iat", "iss", "sub", "name", "amr", "aud"],
             },
         )
 
-        if OAUTH_SESSION_LOGIN_REQUIRE_2FA and decoded_token.get("aal") != "aal2":
+        # RAuthy uses 'amr' claim for authentication methods verification
+        # amr values: password, oidc, code, totp, webauthn, lookup_secret
+        amr = set(decoded_token.get("amr", []))
+        if OAUTH_OIDC_LOGIN_REQUIRE_2FA and not (
+            {"password", "oidc", "code"} & amr
+            and {"webauthn", "lookup_secrets", "totp"} & amr
+        ):
             raise ValueError(
                 "2FA authentication is mandatory on Zimfarm but it looks like you only "
-                "have one setup on Ory. Please, configure a second one on Ory at "
-                "https://login.kiwix.org/settings"
+                "have one setup. Please, configure a second authentication factor."
             )
         return JWTClaims.model_validate(decoded_token)
 
     @property
     def name(self) -> str:
-        return "oauth-session"
+        return "rauthy"
 
     @property
     def can_decode(self) -> bool:
-        return "oauth-session" in AUTH_MODES
+        return "rauthy" in AUTH_MODES
 
 
 class TokenDecoderChain:
@@ -215,8 +225,14 @@ class TokenDecoderChain:
         raise ValueError("Inavlid token")
 
 
+# Token decoder chain order: Local first, then OIDC/rauthy
+# Session-based auth has been removed in favor of OIDC Authorization Code flow
 token_decoder = TokenDecoderChain(
-    decoders=[LocalTokenDecoder(), OAuthOIDCTokenDecoder(), OAuthSessionTokenDecoder()]
+    decoders=[
+        LocalTokenDecoder(),
+        OAuthOIDCTokenDecoder(),
+        RAuthyTokenDecoder(),
+    ]
 )
 
 

@@ -14,7 +14,8 @@ export interface Config {
   BLOB_MAX_SIZE: number
   OAUTH_CLIENT_ID: string
   OAUTH_BASE_URL: string
-  OAUTH_MODE: 'oidc' | 'session'
+  OAUTH_ISSUER: string
+  OAUTH_MODE: 'oidc' | 'rauthy'
   LOGIN_MODES: Array<string>
 }
 

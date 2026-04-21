@@ -13,15 +13,18 @@ interface OAuthOIDCTokenResponse {
 
 /**
  * OIDC/OAuth2 authentication provider using PKCE flow
+ * Supports RAuthy and other OIDC providers
  */
 export class OAuthOIDCProvider extends AuthProvider {
   protected config: OAuthConfig
   protected keyName: string
+  protected tokenType: string
 
-  constructor(config: OAuthConfig) {
+  constructor(config: OAuthConfig, tokenType: string = 'oidc') {
     super()
     this.config = config
     this.keyName = `${constants.TOKEN_STORAGE_KEY}-oauth-oidc`
+    this.tokenType = tokenType
   }
   /**
    * Initiates the OAuth2 PKCE flow
@@ -109,7 +112,7 @@ export class OAuthOIDCProvider extends AuthProvider {
     const newToken: StoredToken = {
       access_token: response.id_token,
       refresh_token: response.refresh_token,
-      token_type: 'oauth',
+      token_type: this.tokenType,
       expires_time: expiresTime,
     }
     this.saveToken(newToken)
@@ -155,7 +158,7 @@ export class OAuthOIDCProvider extends AuthProvider {
     return {
       access_token: response.id_token,
       refresh_token: response.refresh_token,
-      token_type: 'oauth',
+      token_type: this.tokenType,
       expires_time: expiresTime,
     }
   }

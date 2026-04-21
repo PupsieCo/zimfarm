@@ -36,19 +36,35 @@
 </template>
 
 <script setup lang="ts">
+import type { Config } from '@/config'
+import constants from '@/constants'
 import { useAuthStore } from '@/stores/auth'
-import { onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const authStore = useAuthStore()
 
+// Inject config
+const config = inject<Config>(constants.config)
+if (!config) {
+  throw new Error('Config is not defined')
+}
+
 const loading = ref(true)
 const error = ref<string | null>(null)
 
+// Determine auth mode based on config
+const authMode = computed<'oidc' | 'rauthy' | 'oauth'>(() => {
+  if (config.OAUTH_MODE === 'rauthy') {
+    return 'rauthy'
+  }
+  return 'oidc'
+})
+
 onMounted(async () => {
   try {
-    const success = await authStore.handleCallBack('oauth', window.location.href)
+    const success = await authStore.handleCallBack(authMode.value, window.location.href)
     if (!success) {
       throw new Error(authStore.errors.join(', ') || 'Authentication failed')
     }

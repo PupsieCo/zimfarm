@@ -8,20 +8,26 @@ export interface OAuthConfig {
   userInfoUrl: string
   revocationUrl: string
   basePath: string
+  issuer: string
 }
 
 /**
- * Get Kiwix authentication configuration from app config
+ * Get OIDC authentication configuration from app config
+ * Supports both RAuthy and other OIDC providers
  */
 export function getOAuthConfig(config: Config): OAuthConfig {
   const basePath = config.OAUTH_BASE_URL
+  const issuer = config.OAUTH_ISSUER || `${basePath}/auth/v1`
+
+  // Use standard OIDC paths (compatible with RAuthy and most OIDC providers)
   return {
     clientId: config.OAUTH_CLIENT_ID,
-    authorizeUrl: `${basePath}/oauth2/auth`,
-    tokenUrl: `${basePath}/oauth2/token`,
-    userInfoUrl: `${basePath}/userinfo`,
-    revocationUrl: `${basePath}/oauth2/revoke`,
+    authorizeUrl: `${basePath}/oidc/authorize`,
+    tokenUrl: `${basePath}/oidc/token`,
+    userInfoUrl: `${basePath}/oidc/userinfo`,
+    revocationUrl: `${basePath}/oidc/token/revoke`,
     basePath: basePath,
+    issuer: issuer,
   }
 }
 

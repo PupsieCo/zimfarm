@@ -1,4 +1,4 @@
-export type AuthProviderType = 'local' | 'oauth'
+export type AuthProviderType = 'local' | 'oidc' | 'rauthy' | 'oauth'
 
 export interface StoredToken {
   access_token: string

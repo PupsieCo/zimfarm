@@ -99,10 +99,10 @@
               size="large"
               block
               class="mb-4 kiwix-btn"
-              @click="signInWithKiwix"
+              @click="signInWithOAuth"
             >
-              <span class="flex-grow-1">Sign in with Kiwix</span>
-              <img src="/assets/kiwix-icon.svg" alt="Kiwix" class="kiwix-icon" />
+              <span class="flex-grow-1">Sign in with {{ oauthLabel }}</span>
+              <img src="/assets/kiwix-icon.svg" alt="OAuth Provider" class="kiwix-icon" />
             </v-btn>
 
             <!-- Contact Email -->
@@ -157,7 +157,14 @@ const showLocalLogin = computed(() => {
 })
 
 const showOAuthLogin = computed(() => {
-  return config.LOGIN_MODES.includes('oauth')
+  return config.LOGIN_MODES.includes('oauth') || config.LOGIN_MODES.includes('rauthy')
+})
+
+const oauthLabel = computed(() => {
+  if (config.OAUTH_MODE === 'rauthy') {
+    return 'RAuthy'
+  }
+  return 'OAuth'
 })
 
 const showDivider = computed(() => {
@@ -204,13 +211,13 @@ const authenticate = async () => {
   }
 }
 
-const signInWithKiwix = async () => {
+const signInWithOAuth = async () => {
   // Store current route for redirect after authentication
   const redirect = route.query.redirect as string
   if (redirect) {
     sessionStorage.setItem('auth_redirect', redirect)
   }
-  await authStore.authenticate('oauth')
+  await authStore.authenticate(config.OAUTH_MODE === 'rauthy' ? 'rauthy' : 'oidc')
 }
 </script>
 

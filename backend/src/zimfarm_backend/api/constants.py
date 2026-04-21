@@ -10,8 +10,7 @@ JWT_TOKEN_EXPIRY_DURATION = parse_timespan(
 )
 ZIM_ILLUSTRATION_SIZE = int(getenv("ZIM_ILLUSTRATION_SIZE", default="48"))
 
-# List of authentication modes. Allowed values are "local", "oauth-oidc",
-# "oauth-session"
+# List of authentication modes. Allowed values are "local", "oauth-oidc", "rauthy"
 AUTH_MODES: list[str] = getenv(
     "AUTH_MODES",
     default="local",
@@ -29,12 +28,10 @@ OAUTH_OIDC_CLIENT_ID = getenv(
 OAUTH_OIDC_LOGIN_REQUIRE_2FA = parse_bool(
     getenv("OAUTH_OIDC_LOGIN_REQUIRE_2FA", default="true")
 )
-OAUTH_SESSION_AUDIENCE_ID = getenv(
-    "OAUTH_SESSION_AUDIENCE_ID", default="bada4130-5143-4524-a0bb-0d69671beee2"
-)
-OAUTH_SESSION_LOGIN_REQUIRE_2FA = parse_bool(
-    getenv("OAUTH_SESSION_LOGIN_REQUIRE_2FA", default="true")
-)
+# RAuthy-specific audience (not used by default, for custom RAuthy deployments)
+OAUTH_AUDIENCE = getenv("OAUTH_AUDIENCE")
+# OAuth mode (legacy, kept for backwards compatibility during migration)
+OAUTH_MODE = getenv("OAUTH_MODE", default="oidc")
 CREATE_NEW_OAUTH_ACCOUNT = parse_bool(
     getenv("CREATE_NEW_OAUTH_ACCOUNT", default="true")
 )
